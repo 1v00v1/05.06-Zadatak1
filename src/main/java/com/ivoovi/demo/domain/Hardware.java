@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
+
 
 @Data
 @AllArgsConstructor
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class Hardware {
     private Integer id;
     private String naziv;
-    private Integer šifra;
+    private String šifra;
     private Double cijena;
     private Type type;
     private Integer količina;

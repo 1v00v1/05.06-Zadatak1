@@ -2,11 +2,12 @@ package com.ivoovi.demo.controler;
 
 import com.ivoovi.demo.dto.HardwareDTO;
 import com.ivoovi.demo.service.HardwareService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,8 +24,26 @@ public class HardwareController {
     }
 
     @GetMapping("/{sifra}")
-    public List<HardwareDTO> filterBySifra(@PathVariable String sifra){
-        return hardwareService.getHardwareBySifra(Integer.valueOf(sifra)).stream().toList();
+    public HardwareDTO filterBySifra(@PathVariable String sifra){
+        return hardwareService.getHardwareBySifra(sifra);
+    }
+
+    @PostMapping("/new")
+    public ResponseEntity<?> saveNewHardware(@Valid @RequestBody HardwareDTO hardwareDTO){
+        hardwareService.saveNewHardwareDTO(hardwareDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/article{id}")
+    public ResponseEntity<HardwareDTO> updateHardware(@Valid @RequestBody HardwareDTO hardwareDTO ,@PathVariable Integer id){
+       hardwareService.updateHardware(hardwareDTO,id);
+
+       return ResponseEntity.ok(hardwareDTO);
+    }
+    @DeleteMapping("/article/{id}")
+    public ResponseEntity<?> deleteHardware(Integer id){
+        hardwareService.deleteHardware(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
