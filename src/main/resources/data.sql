@@ -1,6 +1,6 @@
-INSERT INTO TYPE (name)
+INSERT INTO Type (name)
 VALUES("CPU");
-INSERT INTO TYPE (name)
+INSERT INTO Type (name)
 VALUES("GPU");
 
 INSERT INTO Hardware(naziv,sifra, cijena ,typeId,kolicina)

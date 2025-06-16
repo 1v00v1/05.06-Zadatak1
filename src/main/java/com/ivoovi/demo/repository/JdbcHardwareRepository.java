@@ -19,13 +19,15 @@ import java.util.Optional;
 @AllArgsConstructor
 @Primary
 public class JdbcHardwareRepository implements HardwareRepository{
+    private JdbcTemplate jdbcTemplate;
+
     @Override
     public boolean hardwareByIdExists(Integer id) {
         Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM HARDWARE WHERE ID =?",Integer.class,id);
         return count>0;
     }
 
-    private JdbcTemplate jdbcTemplate;
+
     @Override
     public boolean deleteHardware(Integer id) {
         if(hardwareByIdExists(id)){
