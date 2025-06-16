@@ -24,8 +24,8 @@ public class HardwareController {
     }
 
     @GetMapping("/{sifra}")
-    public HardwareDTO filterBySifra(@PathVariable String sifra){
-        return hardwareService.getHardwareBySifra(sifra);
+    public ResponseEntity<List<HardwareDTO >> filterBySifra(@PathVariable String sifra){
+        return ResponseEntity.ok(hardwareService.getHardwareBySifra(sifra).stream().toList());
     }
 
     @PostMapping("/new")

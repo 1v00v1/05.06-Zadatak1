@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class Hardware {
     private Integer id;
     private String naziv;
-    private String šifra;
+    private String sifra;
     private Double cijena;
     private Type type;
-    private Integer količina;
+    private Integer kolicina;
 }

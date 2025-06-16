@@ -24,8 +24,8 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public HardwareDTO getHardwareBySifra(String code) {
-        return hardwareRepository.getHardwareBySifra(code).map(HardwareDTO::new).orElse(null);
+    public List<HardwareDTO> getHardwareBySifra(String code) {
+        return hardwareRepository.getHardwareBySifra(code).stream().map(this::convertHardwareToHardwareDTO).toList();
     }
 
     private HardwareDTO convertArticleToArticleDTO(Hardware hardware) {
@@ -33,8 +33,8 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public Integer saveNewHardwareDTO(HardwareDTO hardwareDTO) {
-        return hardwareRepository.saveNewHardware(convertHardwareDTOToHardware(hardwareDTO));
+    public HardwareDTO saveNewHardwareDTO(HardwareDTO hardwareDTO) {
+        return convertHardwareToHardwareDTO( hardwareRepository.saveNewHardware(convertHardwareDTOToHardware(hardwareDTO)));
     }
 
     @Override

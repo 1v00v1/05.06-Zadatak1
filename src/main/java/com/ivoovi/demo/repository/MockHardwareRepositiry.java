@@ -31,17 +31,17 @@ public class MockHardwareRepositiry implements HardwareRepository{
     }
 
     @Override
-    public Optional<Hardware> getHardwareBySifra(String sifra) {
+    public List<Hardware> getHardwareBySifra(String sifra) {
         return hardwareList.stream()
-                .filter(h -> Objects.equals(h.getŠifra() , sifra)).findAny();
+                .filter(h -> Objects.equals(h.getSifra() , sifra)).findAny().stream().toList();
     }
 
     @Override
-    public Integer saveNewHardware(Hardware hardware) {
+    public Hardware saveNewHardware(Hardware hardware) {
         Integer generatedId = hardwareList.size()+1;
         hardware.setId(generatedId);
         hardwareList.add(hardware);
-        return generatedId;
+        return hardware;
     }
 
     @Override
@@ -51,9 +51,9 @@ public class MockHardwareRepositiry implements HardwareRepository{
         if(storedHardwareOptional.isPresent()){
             Hardware storedHardware = storedHardwareOptional.get();
             storedHardware.setId(hardwareToUpdate.getId());
-            storedHardware.setKoličina(hardwareToUpdate.getKoličina());
+            storedHardware.setKolicina(hardwareToUpdate.getKolicina());
             storedHardware.setCijena(hardwareToUpdate.getCijena());
-            storedHardware.setŠifra(hardwareToUpdate.getŠifra());
+            storedHardware.setSifra(hardwareToUpdate.getSifra());
             storedHardware.setNaziv(hardwareToUpdate.getNaziv());
             storedHardware.setType(hardwareToUpdate.getType());
             return Optional.of(storedHardware);
@@ -65,5 +65,10 @@ public class MockHardwareRepositiry implements HardwareRepository{
     @Override
     public boolean deleteHardware(Integer id) {
         return hardwareList.removeIf(h -> h.getId().equals(id));
+    }
+
+    @Override
+    public boolean hardwareByIdExists(Integer id) {
+        return hardwareList.stream().anyMatch(h ->h.getId().equals(id));
     }
 }
